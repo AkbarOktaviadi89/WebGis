@@ -271,26 +271,30 @@
         </div>
     </div>
 
-    <!-- About Modal -->
-    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="aboutModalLabel">Tentang Sistem</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>WebGIS Sistem Informasi Kriminalitas</strong></p>
-                    <p>Versi: 1.0.0</p>
-                    <p>Framework: CodeIgniter 4</p>
-                    <p>Template: SB Admin 2</p>
-                    <p>Dikembangkan untuk membantu analisis dan pemantauan tingkat kriminalitas.</p>
-                </div>
+   <!-- About Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aboutModalLabel">About</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Memberikan informasi latar belakang dan tujuan WebGIS, sehingga pengguna paham konteksnya. <br><strong>Contoh isinya:</strong></p>
+                <ul>
+                    <li><strong>Tujuan WebGIS:</strong> misalnya untuk memantau sebaran kriminalitas, mendukung pengambilan keputusan pembangunan daerah, dan meningkatkan kesadaran spasial masyarakat.</li>
+                    <li><strong>Pengembang Sistem:</strong> nama instansi, tim, atau peneliti yang membuatnya.</li>
+                    <li><strong>Sumber Data:</strong> asal data (misalnya dari kepolisian, BPS, survei lapangan).</li>
+                    <li><strong>Metode Pengolahan Data:</strong> singkat tentang metode seperti <em>clustering</em>, <em>heatmap</em>, atau lainnya yang digunakan.</li>
+                    <li><strong>Batasan Sistem:</strong> keterbatasan data atau fungsi, misalnya data hanya mencakup tahun tertentu atau wilayah tertentu.</li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>

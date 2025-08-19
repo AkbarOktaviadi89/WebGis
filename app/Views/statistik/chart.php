@@ -8,7 +8,7 @@
     <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Pilih Jenis Grafik</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Pilih Jenis Grafik - Kota Bandung</h6>
             </div>
             <div class="card-body">
                 <div class="btn-group" role="group" aria-label="Chart Types">
@@ -33,7 +33,7 @@
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary" id="chartTitle">Trend Kriminalitas</h6>
+                <h6 class="m-0 font-weight-bold text-primary" id="chartTitle">Trend Kriminalitas Kota Bandung</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -63,7 +63,7 @@
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Ringkasan Statistik</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Ringkasan Statistik Bandung</h6>
             </div>
             <div class="card-body">
                 <div class="row no-gutters">
@@ -72,7 +72,7 @@
                         <div class="h4 font-weight-bold" id="totalCases">-</div>
                     </div>
                     <div class="col-12 mb-3">
-                        <div class="small text-gray-500">Kasus Tertinggi</div>
+                        <div class="small text-gray-500">Wilayah Tertinggi</div>
                         <div class="h5 font-weight-bold text-success" id="highestCase">-</div>
                     </div>
                     <div class="col-12 mb-3">
@@ -101,7 +101,7 @@
                     <i class="fas fa-table"></i> Lihat Tabel
                 </a>
                 <a href="<?= base_url('peta') ?>" class="btn btn-info btn-sm btn-block mb-2">
-                    <i class="fas fa-map"></i> Lihat Peta
+                    <i class="fas fa-map"></i> Peta Bandung
                 </a>
                 <button class="btn btn-success btn-sm btn-block" onclick="downloadData()">
                     <i class="fas fa-download"></i> Download Data
@@ -271,10 +271,10 @@ function updateSummaryStats(data) {
         
         document.getElementById('totalCases').textContent = total.toLocaleString();
         document.getElementById('highestCase').textContent = `${highestLabel} (${highest})`;
-        document.getElementById('trendInfo').textContent = total > 200 ? 'Meningkat' : 'Stabil';
+        document.getElementById('trendInfo').textContent = total > 160 ? 'Meningkat' : 'Stabil';
         
         // Update progress bar
-        const maxExpected = 500;
+        const maxExpected = 400;
         const percentage = Math.min((total / maxExpected) * 100, 100);
         document.getElementById('progressBar').style.width = `${percentage}%`;
         
@@ -285,12 +285,12 @@ function updateSummaryStats(data) {
 
 function updateChartTitle(type) {
     const titles = {
-        'line': 'Trend Kriminalitas Bulanan',
-        'bar': 'Distribusi Kriminalitas per Wilayah', 
-        'pie': 'Persentase Jenis Kriminalitas'
+        'line': 'Trend Kriminalitas Bulanan - Kota Bandung',
+        'bar': 'Distribusi Kriminalitas per Wilayah Bandung', 
+        'pie': 'Persentase Jenis Kriminalitas Bandung'
     };
     
-    document.getElementById('chartTitle').textContent = titles[type] || 'Grafik Kriminalitas';
+    document.getElementById('chartTitle').textContent = titles[type] || 'Grafik Kriminalitas Bandung';
 }
 
 function refreshChart() {
@@ -308,20 +308,21 @@ function exportChart() {
     if (mainChart) {
         const url = mainChart.toBase64Image();
         const link = document.createElement('a');
-        link.download = 'chart-kriminalitas.png';
+        link.download = 'chart-kriminalitas-bandung.png';
         link.href = url;
         link.click();
     }
 }
 
 function downloadData() {
-    // Create CSV data
+    // Create CSV data for Bandung
     const csvData = [
         ['Jenis', 'Jumlah'],
-        ['Pencurian', '45'],
-        ['Perampokan', '25'],
-        ['Penipuan', '20'],
-        ['Narkoba', '10']
+        ['Pencurian', '38'],
+        ['Perampokan', '20'],
+        ['Penipuan', '17'],
+        ['Narkoba', '8'],
+        ['Penganiayaan', '12']
     ];
     
     let csvContent = csvData.map(row => row.join(',')).join('\n');
@@ -330,7 +331,7 @@ function downloadData() {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'data-kriminalitas.csv';
+    link.download = 'data-kriminalitas-bandung.csv';
     link.click();
     window.URL.revokeObjectURL(url);
 }

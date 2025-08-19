@@ -7,7 +7,7 @@ class StatistikController extends BaseController
 {
     public function index()
     {
-        $this->data['page_title'] = 'Statistik Kriminalitas';
+        $this->data['page_title'] = 'Statistik Kriminalitas Bandung';
         $this->data['breadcrumb'] = 'Statistik Kriminalitas';
         
         return view('statistik/index', $this->data);
@@ -16,7 +16,7 @@ class StatistikController extends BaseController
     // Halaman khusus untuk grafik
     public function chart()
     {
-        $this->data['page_title'] = 'Grafik Statistik Kriminalitas';
+        $this->data['page_title'] = 'Grafik Statistik Kriminalitas Bandung';
         $this->data['breadcrumb'] = 'Grafik Statistik';
         
         return view('statistik/chart', $this->data);
@@ -25,7 +25,7 @@ class StatistikController extends BaseController
     // Halaman khusus untuk tabel
     public function tabel()
     {
-        $this->data['page_title'] = 'Tabel Statistik Kriminalitas';
+        $this->data['page_title'] = 'Tabel Statistik Kriminalitas Bandung';
         $this->data['breadcrumb'] = 'Tabel Statistik';
         
         return view('statistik/tabel', $this->data);
@@ -40,7 +40,7 @@ class StatistikController extends BaseController
         $this->response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         $this->response->setHeader('Access-Control-Allow-Headers', 'Content-Type');
         
-        // Simulasi data dari database
+        // Simulasi data dari database - Data Bandung
         $data = [
             'success' => true,
             'message' => 'Data berhasil diambil',
@@ -48,7 +48,7 @@ class StatistikController extends BaseController
                 [
                     'id' => 1,
                     'jenis' => 'Pencurian',
-                    'lokasi' => 'Jakarta Pusat',
+                    'lokasi' => 'Bandung Utara',
                     'tanggal' => '2024-01-15',
                     'status' => 'Selesai',
                     'tingkat' => 'Sedang'
@@ -56,7 +56,7 @@ class StatistikController extends BaseController
                 [
                     'id' => 2,
                     'jenis' => 'Perampokan',
-                    'lokasi' => 'Jakarta Utara',
+                    'lokasi' => 'Cimahi',
                     'tanggal' => '2024-01-16',
                     'status' => 'Proses',
                     'tingkat' => 'Tinggi'
@@ -64,7 +64,7 @@ class StatistikController extends BaseController
                 [
                     'id' => 3,
                     'jenis' => 'Penipuan',
-                    'lokasi' => 'Jakarta Selatan',
+                    'lokasi' => 'Bandung Selatan',
                     'tanggal' => '2024-01-17',
                     'status' => 'Selesai',
                     'tingkat' => 'Rendah'
@@ -72,7 +72,7 @@ class StatistikController extends BaseController
                 [
                     'id' => 4,
                     'jenis' => 'Narkoba',
-                    'lokasi' => 'Jakarta Timur',
+                    'lokasi' => 'Bandung Timur',
                     'tanggal' => '2024-01-18',
                     'status' => 'Proses',
                     'tingkat' => 'Tinggi'
@@ -80,10 +80,26 @@ class StatistikController extends BaseController
                 [
                     'id' => 5,
                     'jenis' => 'Pencurian',
-                    'lokasi' => 'Jakarta Barat',
+                    'lokasi' => 'Bandung Barat',
                     'tanggal' => '2024-01-19',
                     'status' => 'Selesai',
                     'tingkat' => 'Sedang'
+                ],
+                [
+                    'id' => 6,
+                    'jenis' => 'Penganiayaan',
+                    'lokasi' => 'Coblong',
+                    'tanggal' => '2024-01-20',
+                    'status' => 'Proses',
+                    'tingkat' => 'Sedang'
+                ],
+                [
+                    'id' => 7,
+                    'jenis' => 'Penipuan',
+                    'lokasi' => 'Sukasari',
+                    'tanggal' => '2024-01-21',
+                    'status' => 'Selesai',
+                    'tingkat' => 'Rendah'
                 ]
             ]
         ];
@@ -115,7 +131,7 @@ class StatistikController extends BaseController
                         'datasets' => [
                             [
                                 'label' => 'Pencurian',
-                                'data' => [45, 52, 38, 67, 43, 55],
+                                'data' => [38, 45, 32, 58, 37, 48],
                                 'borderColor' => 'rgb(78, 115, 223)',
                                 'backgroundColor' => 'rgba(78, 115, 223, 0.1)',
                                 'tension' => 0.4,
@@ -123,7 +139,7 @@ class StatistikController extends BaseController
                             ],
                             [
                                 'label' => 'Perampokan',
-                                'data' => [12, 18, 15, 23, 19, 28],
+                                'data' => [10, 15, 12, 19, 16, 23],
                                 'borderColor' => 'rgb(231, 74, 59)',
                                 'backgroundColor' => 'rgba(231, 74, 59, 0.1)',
                                 'tension' => 0.4,
@@ -131,7 +147,7 @@ class StatistikController extends BaseController
                             ],
                             [
                                 'label' => 'Penipuan',
-                                'data' => [8, 12, 10, 15, 14, 18],
+                                'data' => [6, 10, 8, 12, 11, 15],
                                 'borderColor' => 'rgb(28, 200, 138)',
                                 'backgroundColor' => 'rgba(28, 200, 138, 0.1)',
                                 'tension' => 0.4,
@@ -143,22 +159,24 @@ class StatistikController extends BaseController
                 
                 case 'pie':
                     $data = [
-                        'labels' => ['Pencurian', 'Perampokan', 'Penipuan', 'Narkoba'],
+                        'labels' => ['Pencurian', 'Perampokan', 'Penipuan', 'Narkoba', 'Penganiayaan'],
                         'datasets' => [
                             [
                                 'label' => 'Jumlah Kasus',
-                                'data' => [45, 25, 20, 10],
+                                'data' => [38, 20, 17, 8, 12],
                                 'backgroundColor' => [
                                     'rgba(78, 115, 223, 0.8)',
                                     'rgba(231, 74, 59, 0.8)',
                                     'rgba(28, 200, 138, 0.8)',
-                                    'rgba(246, 194, 62, 0.8)'
+                                    'rgba(246, 194, 62, 0.8)',
+                                    'rgba(156, 39, 176, 0.8)'
                                 ],
                                 'borderColor' => [
                                     'rgb(78, 115, 223)',
                                     'rgb(231, 74, 59)',
                                     'rgb(28, 200, 138)',
-                                    'rgb(246, 194, 62)'
+                                    'rgb(246, 194, 62)',
+                                    'rgb(156, 39, 176)'
                                 ],
                                 'borderWidth' => 2
                             ]
@@ -168,11 +186,11 @@ class StatistikController extends BaseController
                 
                 case 'bar':
                     $data = [
-                        'labels' => ['Jakarta Pusat', 'Jakarta Utara', 'Jakarta Selatan', 'Jakarta Barat', 'Jakarta Timur'],
+                        'labels' => ['Bandung Utara', 'Bandung Selatan', 'Bandung Timur', 'Bandung Barat', 'Cimahi'],
                         'datasets' => [
                             [
                                 'label' => 'Jumlah Kasus',
-                                'data' => [45, 32, 28, 35, 41],
+                                'data' => [38, 28, 25, 30, 35],
                                 'backgroundColor' => [
                                     'rgba(78, 115, 223, 0.8)',
                                     'rgba(28, 200, 138, 0.8)',
@@ -221,16 +239,17 @@ class StatistikController extends BaseController
         $summary = [
             'success' => true,
             'data' => [
-                'total_cases' => 181,
-                'monthly_cases' => 87,
-                'highest_area' => 'Jakarta Pusat',
-                'trend' => 'increasing',
+                'total_cases' => 156,
+                'monthly_cases' => 74,
+                'highest_area' => 'Bandung Utara',
+                'trend' => 'stable',
                 'last_updated' => date('Y-m-d H:i:s'),
                 'case_types' => [
-                    'Pencurian' => 45,
-                    'Perampokan' => 25,
-                    'Penipuan' => 20,
-                    'Narkoba' => 10
+                    'Pencurian' => 38,
+                    'Perampokan' => 20,
+                    'Penipuan' => 17,
+                    'Narkoba' => 8,
+                    'Penganiayaan' => 12
                 ]
             ]
         ];

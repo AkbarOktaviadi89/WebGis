@@ -6,7 +6,7 @@
     <div class="col-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Peta Rawan Kriminalitas</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Peta Rawan Kriminalitas Kota Bandung</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,15 +32,19 @@
                             <option value="perampokan">Perampokan</option>
                             <option value="penipuan">Penipuan</option>
                             <option value="narkoba">Narkoba</option>
+                            <option value="penganiayaan">Penganiayaan</option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-control" id="dateFilter">
-                            <option value="">Semua Periode</option>
-                            <option value="today">Hari Ini</option>
-                            <option value="week">Minggu Ini</option>
-                            <option value="month">Bulan Ini</option>
-                            <option value="year">Tahun Ini</option>
+                        <select class="form-control" id="locationFilter">
+                            <option value="">Semua Wilayah</option>
+                            <option value="bandung-utara">Bandung Utara</option>
+                            <option value="bandung-selatan">Bandung Selatan</option>
+                            <option value="bandung-timur">Bandung Timur</option>
+                            <option value="bandung-barat">Bandung Barat</option>
+                            <option value="cimahi">Cimahi</option>
+                            <option value="coblong">Coblong</option>
+                            <option value="sukasari">Sukasari</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -61,19 +65,23 @@
                 <!-- Legend -->
                 <div class="mt-3">
                     <div class="row">
-                        <div class="col-12">
-                            <h6>Legenda:</h6>
+                        <div class="col-md-8">
+                            <h6>Legenda Tingkat Bahaya:</h6>
                             <div class="d-flex flex-wrap">
                                 <div class="mr-3 mb-2">
-                                    <span class="badge badge-danger">●</span> Tingkat Tinggi (>50 insiden)
+                                    <span class="badge badge-danger">●</span> Tingkat Tinggi (>30 insiden)
                                 </div>
                                 <div class="mr-3 mb-2">
-                                    <span class="badge badge-warning">●</span> Tingkat Sedang (20-50 insiden)
+                                    <span class="badge badge-warning">●</span> Tingkat Sedang (10-30 insiden)
                                 </div>
                                 <div class="mr-3 mb-2">
-                                    <span class="badge badge-success">●</span> Tingkat Rendah (<20 insiden)
+                                    <span class="badge badge-success">●</span> Tingkat Rendah (<10 insiden)
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Wilayah Fokus:</h6>
+                            <small class="text-muted">Peta mencakup wilayah Kota Bandung dan sekitarnya</small>
                         </div>
                     </div>
                 </div>
@@ -87,7 +95,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addIncidentModalLabel">Tambah Insiden Baru</h5>
+                <h5 class="modal-title" id="addIncidentModalLabel">Tambah Insiden Baru - Kota Bandung</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -102,19 +110,37 @@
                             <option value="perampokan">Perampokan</option>
                             <option value="penipuan">Penipuan</option>
                             <option value="narkoba">Narkoba</option>
+                            <option value="penganiayaan">Penganiayaan</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="incidentLocation">Lokasi</label>
-                        <input type="text" class="form-control" id="incidentLocation" placeholder="Alamat lengkap" required>
+                        <select class="form-control" id="incidentLocation" required>
+                            <option value="">Pilih Wilayah</option>
+                            <option value="Bandung Utara">Bandung Utara</option>
+                            <option value="Bandung Selatan">Bandung Selatan</option>
+                            <option value="Bandung Timur">Bandung Timur</option>
+                            <option value="Bandung Barat">Bandung Barat</option>
+                            <option value="Cimahi">Cimahi</option>
+                            <option value="Coblong">Coblong</option>
+                            <option value="Sukasari">Sukasari</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="incidentAddress">Alamat Lengkap</label>
+                        <input type="text" class="form-control" id="incidentAddress" placeholder="Jl. Contoh No. 123, Bandung" required>
                     </div>
                     <div class="form-group">
                         <label for="incidentDate">Tanggal Kejadian</label>
                         <input type="date" class="form-control" id="incidentDate" required>
                     </div>
                     <div class="form-group">
+                        <label for="incidentTime">Waktu Kejadian</label>
+                        <input type="time" class="form-control" id="incidentTime">
+                    </div>
+                    <div class="form-group">
                         <label for="incidentDescription">Deskripsi</label>
-                        <textarea class="form-control" id="incidentDescription" rows="3" placeholder="Deskripsi kejadian"></textarea>
+                        <textarea class="form-control" id="incidentDescription" rows="3" placeholder="Deskripsi kejadian secara detail"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="incidentSeverity">Tingkat Bahaya</label>
@@ -149,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeMap() {
-    // Initialize map
-    crimeMap = L.map('crimeMap').setView([-6.2088, 106.8456], 11);
+    // Initialize map centered on Bandung
+    crimeMap = L.map('crimeMap').setView([-6.9175, 107.6191], 12);
     
     // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -162,14 +188,15 @@ function initializeMap() {
 }
 
 function loadMapData() {
-    // Simulate crime data
+    // Crime data for Bandung
     const crimeData = [
-        {lat: -6.2088, lng: 106.8456, type: 'pencurian', count: 45, severity: 'tinggi'},
-        {lat: -6.1751, lng: 106.8650, type: 'perampokan', count: 32, severity: 'sedang'},
-        {lat: -6.2614, lng: 106.7812, type: 'penipuan', count: 28, severity: 'sedang'},
-        {lat: -6.3026, lng: 106.8456, type: 'narkoba', count: 15, severity: 'rendah'},
-        {lat: -6.1574, lng: 106.9180, type: 'pencurian', count: 67, severity: 'tinggi'},
-        {lat: -6.2297, lng: 106.9239, type: 'perampokan', count: 23, severity: 'sedang'}
+        {lat: -6.9175, lng: 107.6191, type: 'pencurian', count: 38, severity: 'sedang', location: 'Bandung Utara'},
+        {lat: -6.8915, lng: 107.6098, type: 'perampokan', count: 20, severity: 'tinggi', location: 'Cimahi'},
+        {lat: -6.9575, lng: 107.6191, type: 'penipuan', count: 17, severity: 'rendah', location: 'Bandung Selatan'},
+        {lat: -6.9175, lng: 107.6648, type: 'narkoba', count: 8, severity: 'tinggi', location: 'Bandung Timur'},
+        {lat: -6.9175, lng: 107.5734, type: 'pencurian', count: 25, severity: 'sedang', location: 'Bandung Barat'},
+        {lat: -6.8995, lng: 107.6098, type: 'penganiayaan', count: 12, severity: 'sedang', location: 'Coblong'},
+        {lat: -6.8705, lng: 107.5951, type: 'penipuan', count: 9, severity: 'rendah', location: 'Sukasari'}
     ];
     
     // Clear existing markers
@@ -189,9 +216,10 @@ function loadMapData() {
             .bindPopup(`
                 <div class="popup-content">
                     <h6><strong>${crime.type.toUpperCase()}</strong></h6>
-                    <p>Jumlah Insiden: <strong>${crime.count}</strong></p>
-                    <p>Tingkat Bahaya: <span class="badge badge-${getSeverityBadge(crime.severity)}">${crime.severity.toUpperCase()}</span></p>
-                    <button class="btn btn-sm btn-primary" onclick="viewDetails(${crime.lat}, ${crime.lng})">Detail</button>
+                    <p><i class="fas fa-map-marker-alt"></i> ${crime.location}</p>
+                    <p><i class="fas fa-chart-bar"></i> Jumlah Insiden: <strong>${crime.count}</strong></p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Tingkat Bahaya: <span class="badge badge-${getSeverityBadge(crime.severity)}">${crime.severity.toUpperCase()}</span></p>
+                    <button class="btn btn-sm btn-primary" onclick="viewDetails('${crime.location}')">Detail</button>
                 </div>
             `);
         
@@ -219,43 +247,76 @@ function getSeverityBadge(severity) {
 
 function updateMap() {
     const typeFilter = document.getElementById('crimeTypeFilter').value;
-    const dateFilter = document.getElementById('dateFilter').value;
+    const locationFilter = document.getElementById('locationFilter').value;
     
-    // Implement filtering logic here
-    console.log('Filtering by type:', typeFilter, 'and date:', dateFilter);
+    console.log('Filtering by type:', typeFilter, 'and location:', locationFilter);
     
     // Reload map data with filters
     loadMapData();
     
     // Show success message
-    showAlert('Peta berhasil diperbarui!', 'success');
+    showAlert('Peta Bandung berhasil diperbarui!', 'success');
 }
 
 function toggleHeatmap() {
-    // Implement heatmap toggle
-    console.log('Toggle heatmap');
-    showAlert('Fitur heatmap akan segera tersedia!', 'info');
+    if (!heatmapLayer) {
+        // Create heatmap layer for Bandung
+        const heatmapData = [
+            [-6.9175, 107.6191, 0.8], // Bandung Utara
+            [-6.8915, 107.6098, 0.7], // Cimahi
+            [-6.9175, 107.6648, 0.6], // Bandung Timur
+            [-6.9175, 107.5734, 0.6], // Bandung Barat
+            [-6.9575, 107.6191, 0.5], // Bandung Selatan
+            [-6.8995, 107.6098, 0.4], // Coblong
+            [-6.8705, 107.5951, 0.3]  // Sukasari
+        ];
+        
+        heatmapLayer = L.heatLayer(heatmapData, {
+            radius: 30,
+            blur: 15,
+            maxZoom: 17
+        });
+    }
+    
+    if (crimeMap.hasLayer(heatmapLayer)) {
+        crimeMap.removeLayer(heatmapLayer);
+        showAlert('Heatmap dinonaktifkan', 'info');
+    } else {
+        crimeMap.addLayer(heatmapLayer);
+        showAlert('Heatmap diaktifkan', 'success');
+    }
 }
 
 function filterByType() {
-    // Implement type filtering
-    console.log('Filter by type');
+    const selectedType = document.getElementById('crimeTypeFilter').value;
+    updateMap();
 }
 
 function exportMap() {
-    // Implement map export
-    showAlert('Export peta akan segera tersedia!', 'info');
+    // Implement map export for Bandung
+    showAlert('Export peta Bandung akan segera tersedia!', 'info');
 }
 
 function addIncident() {
+    // Set default date to today
+    document.getElementById('incidentDate').value = new Date().toISOString().split('T')[0];
     $('#addIncidentModal').modal('show');
 }
 
 function saveIncident() {
     const form = document.getElementById('incidentForm');
     if (form.checkValidity()) {
-        // Simulate saving incident
-        console.log('Saving incident...');
+        const incidentData = {
+            type: document.getElementById('incidentType').value,
+            location: document.getElementById('incidentLocation').value,
+            address: document.getElementById('incidentAddress').value,
+            date: document.getElementById('incidentDate').value,
+            time: document.getElementById('incidentTime').value,
+            description: document.getElementById('incidentDescription').value,
+            severity: document.getElementById('incidentSeverity').value
+        };
+        
+        console.log('Saving incident for Bandung:', incidentData);
         
         // Close modal
         $('#addIncidentModal').modal('hide');
@@ -264,17 +325,17 @@ function saveIncident() {
         form.reset();
         
         // Show success message
-        showAlert('Insiden berhasil ditambahkan!', 'success');
+        showAlert(`Insiden di ${incidentData.location} berhasil ditambahkan!`, 'success');
         
         // Reload map
         loadMapData();
     } else {
-        showAlert('Mohon lengkapi semua field!', 'warning');
+        showAlert('Mohon lengkapi semua field yang diperlukan!', 'warning');
     }
 }
 
-function viewDetails(lat, lng) {
-    showAlert(`Menampilkan detail untuk lokasi: ${lat}, ${lng}`, 'info');
+function viewDetails(location) {
+    showAlert(`Menampilkan detail kriminalitas di ${location}, Kota Bandung`, 'info');
 }
 
 function showAlert(message, type) {
@@ -306,7 +367,7 @@ crimeMap.on('click', function(e) {
         .setLatLng(e.latlng)
         .setContent(`
             <div class="text-center">
-                <p><strong>Koordinat:</strong><br>${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}</p>
+                <p><strong>Koordinat Bandung:</strong><br>${e.latlng.lat.toFixed(6)}, ${e.latlng.lng.toFixed(6)}</p>
                 <button class="btn btn-sm btn-primary" onclick="addIncidentAtLocation(${e.latlng.lat}, ${e.latlng.lng})">
                     <i class="fas fa-plus"></i> Tambah Insiden Disini
                 </button>
@@ -319,8 +380,13 @@ function addIncidentAtLocation(lat, lng) {
     crimeMap.closePopup();
     $('#addIncidentModal').modal('show');
     
-    // Optionally set location field with coordinates
-    document.getElementById('incidentLocation').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    // Set coordinates in address field
+    document.getElementById('incidentAddress').value = `Koordinat: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    document.getElementById('incidentDate').value = new Date().toISOString().split('T')[0];
 }
 </script>
+
+<!-- Load Leaflet Heatmap Plugin -->
+<script src="https://cdn.jsdelivr.net/gh/Leaflet/Leaflet.heat/dist/leaflet-heat.js"></script>
+
 <?= $this->endSection() ?>
